@@ -1,0 +1,19 @@
+name: Deploy Website
+
+on:
+  push:
+    branches:
+      - master  # 确保这里的分支名称与您用于部署的分支相匹配
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout Code
+      uses: actions/checkout@v2
+
+    - name: Deploy to GitHub Pages
+      uses: peaceiris/actions-gh-pages@v3
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: ./  # 指定部署目录，这里直接使用根目录
