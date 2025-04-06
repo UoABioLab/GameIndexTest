@@ -11,6 +11,18 @@
             margin: 0;
             padding: 0;
         }
+
+        .language-switch {
+            text-align: center;
+            margin: 20px;
+            font-size: 18px;
+        }
+
+        #language-select {
+            padding: 5px 10px;
+            font-size: 16px;
+            margin-left: 10px;
+        }
         .container {
             display: flex;
             flex-direction: column;
@@ -122,47 +134,54 @@
     </style>
 </head>
 <body>
-    <h1>Balance Exergames</h1>
+    <h1 id="main-title">Balance Exergames</h1>
+    <div class="language-switch">
+        <label for="language-select">Language / 语言: </label>
+        <select id="language-select" onchange="setLanguage(this.value)">
+          <option value="en">English</option>
+          <option value="zh">中文</option>
+        </select>
+      </div>
     <div class="container">
         <div class="row">
             <div class="image-text-container">
                 <div class="image-container">
-                    <a href="#" onclick="redirectTo('FruitCuttingMasterTest')">
+                    <a href="#" onclick="redirectTo('FruitCuttingMaster')">
                         <img src="images/1.png" alt="Image 1">
                     </a>
                 </div>
-                <p class="description">FruitCuttingMaster</p>
+                <p class="description" id="fruit">FruitCuttingMaster</p>
             </div>
             <div class="image-text-container">
                 <div class="image-container">
-                    <a href="#" onclick="redirectTo('BubblePopKungFuTest')">
+                    <a href="#" onclick="redirectTo('BubblePopKungFu')">
                         <img src="images/2.png" alt="Image 2">
                     </a>
                 </div>
-                <p class="description">BubblePopKungFu</p>
+                <p class="description" id="bubble">BubblePopKungFu</p>
             </div>
             <div class="image-text-container">
                 <div class="image-container">
-                    <a href="#" onclick="redirectTo('MarineAdventureTest')">
+                    <a href="#" onclick="redirectTo('MarineAdventure')">
                         <img src="images/3.png" alt="Image 3">
                     </a>
                 </div>
-                <p class="description">MarineAdventure</p>
+                <p class="description" id="marine">MarineAdventure</p>
             </div>
         </div>
         <div class="row">
             <div class="image-text-container reversed">
-                <p class="description">StarCatcher</p>
+                <p class="description" id="star">StarCatcher</p>
                 <div class="image-container">
-                    <a href="#" onclick="redirectTo('StarCatcherTest')">
+                    <a href="#" onclick="redirectTo('StarCatcher')">
                         <img src="images/4.png" alt="Image 4">
                     </a>
                 </div>
             </div>
             <div class="image-text-container reversed">
-                <p class="description">SteppingMaster</p>
+                <p class="description" id="step">SteppingMaster</p>
                 <div class="image-container">
-                    <a href="#" onclick="redirectTo('SteppingMasterTest')">
+                    <a href="#" onclick="redirectTo('SteppingMaster')">
                         <img src="images/5.png" alt="Image 5">
                     </a>
                 </div>
@@ -189,8 +208,49 @@
     </footer>
 
     <script>
+        
+        const translations = {
+        en: {
+            title: "Balance Exergames",
+            fruit: "FruitCuttingMaster",
+            bubble: "BubblePopKungFu",
+            marine: "MarineAdventure",
+            star: "StarCatcher",
+            step: "SteppingMaster",
+            footer1: "© 2024 Exercise Science Department, University of Auckland",
+            footer2: "Research Project | Biomechanics Lab"
+        },
+        zh: {
+            title: "平衡运动游戏",
+            fruit: "水果切割大师",
+            bubble: "泡泡功夫",
+            marine: "海底历险记",
+            star: "星星捕手",
+            step: "节奏大师",
+            footer1: "© 2024 奥克兰大学 运动科学系",
+            footer2: "研究项目 | 生物力学实验室"
+        }
+    };
+
+        function setLanguage(lang) {
+            localStorage.setItem('language', lang); // 👉 保存语言到 localStorage
+            document.getElementById('language-select').value = lang;
+
+            const t = translations[lang];
+            document.getElementById('main-title').innerText = t.title;
+            document.getElementById('fruit').innerText = t.fruit;
+            document.getElementById('bubble').innerText = t.bubble;
+            document.getElementById('marine').innerText = t.marine;
+            document.getElementById('star').innerText = t.star;
+            document.getElementById('step').innerText = t.step;
+            document.getElementById('footer1').innerText = t.footer1;
+            document.getElementById('footer2').innerText = t.footer2;
+        }
+
         function redirectTo(description) {
-            window.location.href = `https://uoabiolab.github.io/${description}/`;
+            //window.location.href = `https://uoabiolab.github.io/${description}/`;
+            const base = window.location.pathname.replace(/\/$/, ''); // 去掉末尾斜杠
+            window.location.href = `${base}/${description}/`;
         }
 
         // 页面加载时获取访问次数
