@@ -15,12 +15,15 @@
         .language-switch {
             text-align: center;
             margin: 20px;
-            font-size: 18px;
+            font-size: 30px;
+            font-weight: bold;
+            font-weight: bold;
         }
 
         #language-select {
             padding: 5px 10px;
-            font-size: 16px;
+            font-size: 30px;
+            font-weight:bold;
             margin-left: 10px;
         }
         .container {
@@ -89,7 +92,7 @@
         }
         h1 {
             text-align: center;
-            font-size: 40px;
+            font-size: 50px;
             color: #333;
             margin-top: 20px;
         }
@@ -173,7 +176,7 @@
             <div class="image-text-container reversed">
                 <p class="description" id="star">StarCatcher</p>
                 <div class="image-container">
-                    <a href="#" onclick="redirectTo('StarCatcherTest')">
+                    <a href="#" onclick="redirectTo('StarCatcher')">
                         <img src="images/4.png" alt="Image 4">
                     </a>
                 </div>
@@ -247,17 +250,55 @@
             document.getElementById('footer2').innerText = t.footer2;
         }
 
+        // function redirectTo(description) {
+        //     // 判断是否本地
+        //     const isLocal = location.hostname === 'localhost' || location.hostname === '127.0.0.1';
+
+        //     if (isLocal) {
+        //         // 本地调试用相对路径跳转
+        //         window.location.href = `./${description}Build/index.html`;
+        //     } else {
+        //         // 线上部署用 GitHub Pages 路径
+        //         window.location.href = `https://uoabiolab.github.io/${description}/`;
+        //     }
+            
+        // }
+
+        // function redirectTo(description) {
+        //     // 判断是否本地
+        //     const isLocal = location.hostname === 'localhost' || location.hostname === '127.0.0.1';
+
+        //     // 特例处理：如果是 StarCatcherTest，就直接跳转到 StarCatcher
+        //     let folderName = description === 'StarCatcherTest' ? 'StarCatcher' : `${description}Build`;
+
+        //     const targetFolder = `${description}Build`;
+
+        //     const targetURL = isLocal
+        //         ? `/${targetFolder}/index.html`
+        //         : `https://uoabiolab.github.io/${targetFolder}/`;
+
+        //     // ✅ 打印跳转路径
+        //     console.log("跳转路径:", targetURL);
+
+        //     window.location.href = targetURL;
+        // }
+
         function redirectTo(description) {
-            // 判断是否本地
             const isLocal = location.hostname === 'localhost' || location.hostname === '127.0.0.1';
 
-            if (isLocal) {
-                // 本地调试用相对路径跳转
-                window.location.href = `../${description}/index.html`;
+            let folderName;
+            if (description === 'StarCatcher') {
+                folderName = 'StarCatcher';
             } else {
-                // 线上部署用 GitHub Pages 路径
-                window.location.href = `https://uoabiolab.github.io/${description}/`;
+                folderName = `${description}Build`;
             }
+
+            const targetURL = isLocal
+                ? `/${folderName}/index.html`
+                : `https://uoabiolab.github.io/${folderName}/`;
+
+            console.log("跳转路径:", targetURL);
+            window.location.href = targetURL;
         }
 
         // 页面加载时获取访问次数
